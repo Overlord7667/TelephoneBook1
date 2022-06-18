@@ -1,0 +1,40 @@
+﻿<Window x:Class="TelephoneBook1.ViewPersonWindows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TelephoneBook1"
+        mc:Ignorable="d"
+        Title="ViewPersonWindows" Height="450" Width="800">
+    <Window.DataContext>
+        <local:ContactViewModel></local:ContactViewModel>
+    </Window.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <ListBox ItemsSource="{Binding Contacts, UpdateSourceTrigger=PropertyChanged}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding ImageUri, UpdateSourceTrigger=PropertyChanged}"></Image>
+                        <StackPanel Grid.Column="1">
+                            <Label Content="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" FontSize="20"></Label>
+                            <Label Content="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"></Label>
+                            <Label Content="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"></Label>
+                            <Label Content="{Binding Note, UpdateSourceTrigger=PropertyChanged}"></Label>
+                            <Label Content="{Binding BDay, UpdateSourceTrigger=PropertyChanged}"></Label>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+    </Grid>
+</Window>

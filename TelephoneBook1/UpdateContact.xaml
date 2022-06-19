@@ -1,0 +1,29 @@
+﻿<Window x:Class="TelephoneBook1.UpdateContact"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TelephoneBook1"
+        mc:Ignorable="d"
+        Title="UpdateContact" Height="516.033" Width="253.397">
+    <Window.DataContext>
+        <local:UpdateViewModel></local:UpdateViewModel>
+    </Window.DataContext>
+    <Grid>
+        <StackPanel Margin="10">
+            <Label>Имя:</Label>
+            <TextBox Text="{Binding UpdateContact.FirstName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label>Фамилия:</Label>
+            <TextBox Text="{Binding UpdateContact.LastName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label>Телефон:</Label>
+            <TextBox Text="{Binding UpdateContact.Phone, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label>Изображение:</Label>
+            <TextBox Text="{Binding UpdateContact.ImageUri, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label>Заметка:</Label>
+            <TextBox Text="{Binding UpdateContact.Note, UpdateSourceTrigger=PropertyChanged}" Height="40"></TextBox>
+            <Label>Дата рождения:</Label>
+            <Calendar SelectedDate="{Binding UpdateContact.BDay, UpdateSourceTrigger=PropertyChanged}"></Calendar>
+            <Button Command="{Binding UpdateContactButton, UpdateSourceTrigger=PropertyChanged}" Margin="50,5,50,5">Изменить запись</Button>
+        </StackPanel>
+    </Grid>
+</Window>

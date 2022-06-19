@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace TelephoneBook1
 {
@@ -18,7 +20,7 @@ namespace TelephoneBook1
 
         List<Contact> contacts;
         Contact contact;
-        IPersonModel personModel;
+        PersonModel personModel;
         public ContactViewModel()
         {
             personModel = new PersonModel();
@@ -42,5 +44,65 @@ namespace TelephoneBook1
                 Notify("Contacts");
             }
         }
+        public Contact SelectedContact
+        {
+            get { return contact; }
+            set
+            {
+                contact = value;
+                Notify("SelectedContact");
+            }
+        }
+
+        public ICommand AddButton
+        {
+            get
+            {
+                return new ButtonComand(new Action(() =>
+                {
+                    AddContact addContact = new AddContact();
+                    addContact.ShowDialog();
+                    Contacts = personModel.GetAllContacts();
+                }));
+            }
+        }
+
+        public ICommand DeleteButton
+        {
+            get
+            {
+                return new ButtonComand(new Action(() =>
+                {
+                    if(contact != null)
+                    {
+                        MessageBoxResult result = MessageBox.Show("Вы действительно хотите удалить контакт?",
+                            "Удаление контакта " + contact.FirstName, MessageBoxButton.YesNo);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            personModel.DeleteContact(contact);
+                        }
+                        Contacts = personModel.GetAllContacts();
+                    }
+                }));
+            }
+        }
+
+        public ICommand UpdateButton
+        {
+            get
+            {
+                return new ButtonComand(new Action(() =>
+                {
+                    if(contact != null)
+                    {
+                        UpdateViewModel.Id = contact.Id;
+                        UpdateContact updateContact = new UpdateContact();
+                        updateContact.ShowDialog();
+                        Contacts = personModel.GetAllContacts();
+                    }
+                }));
+            }
+        }
+
     }
 }

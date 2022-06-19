@@ -98,12 +98,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddContact.xaml.cs">
+      <DependentUpon>AddContact.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddViewModel.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="ContactViewModel.cs" />
+    <Compile Include="UpdateContact.xaml.cs">
+      <DependentUpon>UpdateContact.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateViewModel.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="ViewPersonWindows.xaml.cs">
       <DependentUpon>ViewPersonWindows.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddContact.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -118,6 +130,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UpdateContact.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewPersonWindows.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

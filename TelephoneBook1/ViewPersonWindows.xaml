@@ -15,7 +15,9 @@
             <RowDefinition Height="8*"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <ListBox ItemsSource="{Binding Contacts, UpdateSourceTrigger=PropertyChanged}">
+        <ListBox 
+            ItemsSource="{Binding Contacts, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding SelectedContact, UpdateSourceTrigger=PropertyChanged}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -35,6 +37,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Command="{Binding AddButton, UpdateSourceTrigger=PropertyChanged}" Margin="5">Добавить запись</Button>
+            <Button Command="{Binding DeleteButton, UpdateSourceTrigger=PropertyChanged}" Margin="5">Удалить запись</Button>
+            <Button Command="{Binding UpdateButton, UpdateSourceTrigger=PropertyChanged}" Margin="5">Изменить запись</Button>
+        </StackPanel>
     </Grid>
 </Window>

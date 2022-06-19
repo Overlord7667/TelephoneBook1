@@ -28,114 +28,42 @@ namespace TelephoneBook1
             command.ExecuteNonQuery();
             _connection.Close();
         }
-        //public void AddPerson(Person person)
-        //{
-        //    string query = "INSERT INTO notes (header,text,imageuri,deadline)" +
-        //        $"VALUES('{person.Header}','{person.Text}','{person.ImageUri}'," +
-        //        $"'{person.DeadLine.ToString("yyyy-MM-dd")}')";
-        //}
-        //public Person GetPerson(int id)
-        //{
-        //    string query = $"SELECT * FROM notes WHERE id = {id}";
-        //    Person note = new Person();
-        //    MySqlDataAdapter adapter = new MySqlDataAdapter(query, _connection);
-        //    DataTable table = new DataTable();
-        //    adapter.Fill(table);
-        //    if (table.Rows.Count > 0)
-        //    {
-        //        note.Id = (int)table.Rows[0].ItemArray[0];
-        //        note.Header = table.Rows[0].ItemArray[1].ToString();
-        //        note.Text = table.Rows[0].ItemArray[2].ToString();
-        //        note.ImageUri = table.Rows[0].ItemArray[3].ToString();
-        //        note.DeadLine = DateTime.Parse(table.Rows[0].ItemArray[4].ToString());
-        //    }
-        //    return note;
-        //}
-
-        //public void OpenPerson(Person person, Person result)
-        //{
-        //    string connStr = "Server=Localhost;Database=test_data;Uid=mysql;";
-        //    MySqlConnection mySqlConnection = new MySqlConnection(connStr);
-        //    mySqlConnection.Open();
-        //    string query = $"Select * from users where login = '{person.Header}'" +
-        //        $" and password='{person.Text}'";
-        //    MySqlDataAdapter adapter = new MySqlDataAdapter(query, mySqlConnection);
-        //    DataTable table = new DataTable();
-        //    adapter.Fill(table);
-        //    if (table.Rows.Count > 0)
-        //    {
-        //        ViewPersonWindows form = new ViewPersonWindows();
-        //        form.ShowDialog();
-        //        MessageBox.Show(table.Rows[0].ItemArray[0].ToString());
-        //    }
-
-        //    else
-        //        MessageBox.Show("Нет такого пользователя");
-        //    mySqlConnection.Close();
-        //}
-
-        //public List<Person> GetAllPersons()
-        //{
-        //    _persons = new List<Person>();
-        //    MySqlDataAdapter adapter = new MySqlDataAdapter(
-        //        "SELECT * FROM notes", _connection);
-        //    DataTable table = new DataTable();
-        //    adapter.Fill(table);
-        //    for (int i = 0; i < table.Rows.Count; i++)
-        //    {
-        //        _persons.Add(new Person()
-        //        {
-        //            Id = (int)table.Rows[i].ItemArray[0],
-        //            Header = table.Rows[i].ItemArray[1].ToString(),
-        //            Text = table.Rows[i].ItemArray[2].ToString(),
-        //            ImageUri = table.Rows[i].ItemArray[3].ToString(),
-        //            DeadLine = DateTime.Parse
-        //            (table.Rows[i].ItemArray[4].ToString())
-        //        });
-        //    }
-        //    return _persons;
-        //}
-
-        //public List<Person> GetActualPersons()
-        //{
-        //    _persons = new List<Person>();
-        //    MySqlDataAdapter adapter = new MySqlDataAdapter(
-        //        "SELECT * FROM WHERE Deadline <= CURRENT_DATE()", _connection);
-        //    DataTable table = new DataTable();
-        //    adapter.Fill(table);
-        //    for (int i = 0; i < table.Rows.Count; i++)
-        //    {
-        //        _persons.Add(new Person()
-        //        {
-        //            Id = (int)table.Rows[i].ItemArray[0],
-        //            Header = table.Rows[i].ItemArray[1].ToString(),
-        //            Text = table.Rows[i].ItemArray[2].ToString(),
-        //            ImageUri = table.Rows[i].ItemArray[3].ToString(),
-        //            DeadLine = DateTime.Parse
-        //            (table.Rows[i].ItemArray[4].ToString())
-        //        });
-        //    }
-        //    return _persons;
-        //}
-
-        //public Person GetNote(int id)
-        //{
-        //    string query = $"SELECT * FROM notes WHERE id = {id}";
-        //    Person note = new Person();
-        //    MySqlDataAdapter adapter = new MySqlDataAdapter(query, _connection);
-        //    DataTable table = new DataTable();
-        //    adapter.Fill(table);
-        //    if (table.Rows.Count > 0)
-        //    {
-        //        note.Id = (int)table.Rows[0].ItemArray[0];
-        //        note.Header = table.Rows[0].ItemArray[1].ToString();
-        //        note.Text = table.Rows[0].ItemArray[2].ToString();
-        //        note.ImageUri = table.Rows[0].ItemArray[3].ToString();
-        //        note.DeadLine = DateTime.Parse(table.Rows[0].ItemArray[4].ToString());
-        //    }
-        //    return note;
-        //}
-
+        public void AddContact(Contact contact)
+        {
+            string query = $"INSERT INTO contacts (first_name, last_name, number_phone, images, note, birthd_date) " +
+                $"VALUES ('{contact.FirstName}', '{contact.LastName}', '{contact.Phone}', '{contact.ImageUri}', '{contact.Note}', '{contact.BDay:yyyy-MM-dd}')";
+            ExecuteCommand(query);
+        }
+        public void DeleteContact(Contact contact)
+        {
+            string query = $"DELETE FROM contacts WHERE id=" + contact.Id.ToString();
+            ExecuteCommand(query);
+        }
+        public Contact GetContact(int id)
+        {
+            string query = $"SELECT * FROM contacts WHERE id= {id}";
+            Contact contact = new Contact();
+            MySqlDataAdapter adapter = new MySqlDataAdapter(query, _connection);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            if(table.Rows.Count > 0)
+            {
+                contact.Id = (int)table.Rows[0].ItemArray[0];
+                contact.FirstName = table.Rows[0].ItemArray[1].ToString();
+                contact.LastName = table.Rows[0].ItemArray[2].ToString();
+                contact.Phone = table.Rows[0].ItemArray[3].ToString();
+                contact.ImageUri = table.Rows[0].ItemArray[4].ToString();
+                contact.Note = table.Rows[0].ItemArray[5].ToString();
+                contact.BDay = DateTime.Parse(table.Rows[0].ItemArray[6].ToString());
+            }
+            return contact;
+        }
+        public void UpdateContact(Contact first, Contact result)
+        {
+            string query = $"UPDATE contacts SET first_name='{result.FirstName}', last_name='{result.LastName}', number_phone='{result.Phone}', images='{result.ImageUri}', " +
+                $"note='{result.Note}', birthd_date='{result.BDay:yyyy-MM-dd}' WHERE id={first.Id}";
+            ExecuteCommand(query);
+        }
         public Person GetLogin(string login, string password)
         {
             Person _person = new Person();
